@@ -11,6 +11,7 @@ missing_values = wine_data.isnull().sum()
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+#QUESTION 2:
 # Visualize the distribution of wine quality scores
 plt.figure(figsize=(8, 5))
 sns.countplot(x='quality', data=wine_data)
@@ -106,3 +107,26 @@ cbar = plt.colorbar(scatter)
 cbar.set_label('Quality')
 
 plt.show()
+#QUESTION 3
+from sklearn.ensemble import RandomForestClassifier
+
+# Separate features (X) and target (y)
+X = data.drop('quality', axis=1)
+y = data['quality']
+
+# Train a Random Forest Classifier
+clf = RandomForestClassifier(n_estimators=100, random_state=42)
+clf.fit(X, y)
+
+# Get feature importances
+feature_importances = pd.Series(clf.feature_importances_, index=X.columns)
+feature_importances.sort_values(ascending=False, inplace=True)
+
+# Plot feature importances
+plt.figure(figsize=(10, 6))
+sns.barplot(x=feature_importances.values, y=feature_importances.index, orient='h')
+plt.title('Feature Importance for Wine Quality')
+plt.xlabel('Importance Score')
+plt.ylabel('Feature')
+plt.show()
+
