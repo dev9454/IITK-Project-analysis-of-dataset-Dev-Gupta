@@ -48,11 +48,61 @@ plt.title('Sulphates Distribution by Wine Quality')
 plt.xlabel('Quality')
 plt.ylabel('Sulphates')
 plt.show()
-
 # Scatter plot of alcohol content vs. citric acid
 plt.figure(figsize=(8, 5))
 sns.scatterplot(x='alcohol', y='citric acid', data=wine_data, hue='quality', palette='coolwarm')
 plt.title('Scatter Plot of Alcohol Content vs. Citric Acid')
 plt.xlabel('Alcohol Content')
 plt.ylabel('Citric Acid')
+plt.show()
+
+# Bar chart of mean alcohol content by wine quality
+mean_alcohol_by_quality = wine_data.groupby('quality')['alcohol'].mean()
+quality_labels = mean_alcohol_by_quality.index
+
+plt.figure(figsize=(8, 5))
+plt.bar(quality_labels, mean_alcohol_by_quality, color='skyblue')
+plt.title('Mean Alcohol Content by Wine Quality')
+plt.xlabel('Quality')
+plt.ylabel('Mean Alcohol Content')
+plt.xticks(quality_labels)
+plt.show()
+
+wine_quality_counts = wine_data['quality'].value_counts().sort_index()
+
+plt.figure(figsize=(8, 5))
+plt.bar(wine_quality_counts.index, wine_quality_counts.values, color='lightcoral')
+plt.title('Wine Quality Distribution')
+plt.xlabel('Quality')
+plt.ylabel('Count')
+plt.xticks(wine_quality_counts.index)
+plt.show()
+
+from mpl_toolkits.mplot3d import Axes3D
+
+# Select three continuous features for the 3D plot
+feature1 = 'alcohol'
+feature2 = 'citric acid'
+feature3 = 'density'
+
+#3D scatter plot
+fig = plt.figure(figsize=(10, 8))
+ax = fig.add_subplot(111, projection='3d')
+
+x = wine_data[feature1]
+y = wine_data[feature2]
+z = wine_data[feature3]
+c = wine_data['quality']  
+
+scatter = ax.scatter(x, y, z, c=c, cmap='coolwarm')
+
+ax.set_xlabel(feature1)
+ax.set_ylabel(feature2)
+ax.set_zlabel(feature3)
+ax.set_title(f'3D Scatter Plot of {feature1}, {feature2}, and {feature3} by Wine Quality')
+
+# Add a colorbar to indicate wine quality
+cbar = plt.colorbar(scatter)
+cbar.set_label('Quality')
+
 plt.show()
