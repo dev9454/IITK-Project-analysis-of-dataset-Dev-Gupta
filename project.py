@@ -48,3 +48,11 @@ plt.title('Sulphates Distribution by Wine Quality')
 plt.xlabel('Quality')
 plt.ylabel('Sulphates')
 plt.show()
+
+# Scatter plot of alcohol content vs. citric acid
+plt.figure(figsize=(8, 5))
+sns.scatterplot(x='alcohol', y='citric acid', data=wine_data, hue='quality', palette='coolwarm')
+plt.title('Scatter Plot of Alcohol Content vs. Citric Acid')
+plt.xlabel('Alcohol Content')
+plt.ylabel('Citric Acid')
+plt.show()
